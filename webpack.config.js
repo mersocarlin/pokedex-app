@@ -38,7 +38,10 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
       {
         test: /\.scss$/,
         loader: 'style!css!sass?outputStyle=expanded&'
@@ -49,7 +52,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'imports?_=lodash&$=jquery!jsx?harmony!babel-loader'
+        loader: 'babel'
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,

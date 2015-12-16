@@ -1,6 +1,4 @@
-import 'babel/register';
-
-
+import 'babel-polyfill';
 import { render } from 'react-dom';
 import FastClick from 'fastclick';
 
