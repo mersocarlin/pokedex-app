@@ -16,7 +16,7 @@ export default React.createClass({
     this.transitionTo("/");
   },
 
-  render() {
+  render () {
     return (
       <div className="app">
         <nav className="navbar navbar-default">

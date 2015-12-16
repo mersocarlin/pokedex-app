@@ -4,26 +4,26 @@ import 'setimmediate';
 export default {
 
   statics: {
-    executeAction(action, payload) {
+    executeAction (action, payload) {
       setImmediate(action.bind(null, payload));
     },
   },
 
-  componentDidMount() {
+  componentDidMount () {
     this.listeners = [];
     this.getListeners().forEach(listener => {
       this._attachStoreListener(listener);
     });
   },
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.listeners.forEach(listener => {
       listener.store.removeChangeListener(listener.handler);
     });
     this.listeners = [];
   },
 
-  getListeners() {
+  getListeners () {
     const storeListeners = this.constructor.storeListeners;
     if (storeListeners) {
       return Object.keys(storeListeners).reduce((accum, handlerName) => {
@@ -34,12 +34,12 @@ export default {
     return [];
   },
 
-  _attachStoreListener(listener) {
+  _attachStoreListener (listener) {
     listener.store.addChangeListener(listener.handler);
     this.listeners.push(listener);
   },
 
-  executeAction(action, payload) {
+  executeAction (action, payload) {
     setImmediate(action.bind(null, payload));
   },
 
