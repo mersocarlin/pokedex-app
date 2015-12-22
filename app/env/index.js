@@ -1,6 +1,4 @@
 import config from './config';
 
 
-export default {
-  config,
-};
+export const Config = config;

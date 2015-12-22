@@ -5,7 +5,7 @@ import Col from './bootstrap/col';
 import PokemonName from './pokemon-name';
 
 
-import { config } from '../env';
+import { Config } from '../env';
 
 
 export default React.createClass({
@@ -48,7 +48,7 @@ export default React.createClass({
   },
 
   renderBody (pokemon) {
-    const imgUrl = `${config.pokemon.imageSmall}${this.fillPokemonId(pokemon)}.png`;
+    const imgUrl = `${Config.pokemon.imageSmall}${this.fillPokemonId(pokemon)}.png`;
 
     return (
       <div className="body">

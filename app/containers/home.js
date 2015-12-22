@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-
-import PokemonsActions from '../actions/pokemons';
-import PokemonsStore from '../stores/pokemons';
-
+import { fetchPokemons, resetPage } from '../actions/pokemons';
+import { Strings } from '../constants';
 
 import Button from '../components/bootstrap/button';
 import Loader from '../components/loader';
@@ -12,87 +11,59 @@ import Row from '../components/bootstrap/row';
 import PokemonGrid from '../components/pokemon-grid';
 
 
-import { Status, Strings } from '../constants';
-import { FluxMixins, RouterMixins } from '../mixins';
+class Home extends Component {
+  componentWillMount () {
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+    this.loadMore(this.props);
+  }
 
-
-export default React.createClass({
-
-  mixins: [FluxMixins, RouterMixins],
-
-  statics: {
-    storeListeners: {
-      'onPokemonsStoreChange': PokemonsStore,
-    },
-  },
-
-  getInitialState () {
-    return PokemonsStore.getInitialState();
-  },
-
-  componentDidMount () {
-    window.addEventListener('scroll', this.handleScroll);
-    this.loadMore();
-  },
-
-  onPokemonsStoreChange () {
-    const state = PokemonsStore.getState();
-
-    let pokemonList = this.state.pokemonList || [];
-
-    if (state.status === Status.Ok) {
-      pokemonList = pokemonList.concat(state.pokemonList);
-    }
-
-    this.setState({
-      pokemonList,
-      pendingPokemons: state.status === Status.Pending,
-    });
-  },
+  componentWillUnmount () {
+    this.props.dispatch(resetPage());
+    window.removeEventListener('scroll', this.handleScroll.bind(this));
+  }
 
   handleScroll () {
     if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
       return;
     }
 
-    const { pendingPokemons } = this.state;
-    const currentPage = PokemonsStore.getCurrentPage();
+    const { pokemons } = this.props;
+    const { isFetchingPokemons, page } = pokemons;
 
-    if (pendingPokemons || currentPage <= 1) {
+    if (isFetchingPokemons || page <= 1) {
       return;
     }
 
-    this.loadMore();
-  },
+    this.loadMore(this.props);
+  }
 
-  loadMore () {
-    const payload = {
-      page: PokemonsStore.getCurrentPage(),
-    };
-
-    this.executeAction(PokemonsActions.loadMore, payload);
-  },
+  loadMore ({ dispatch, pokemons }) {
+    dispatch(fetchPokemons(pokemons.page));
+  }
 
   handlePokemonClick (pokemon) {
-    window.removeEventListener('scroll', this.handleScroll);
-    this.transitionTo(`pokemon/${pokemon.national_id}`);
-  },
+    this.props.history.push(`pokemon/${pokemon.national_id}`);
+  }
 
-  renderLoadMoreButton (page, pendingPokemons) {
-    if (pendingPokemons || page > 1) return;
+  renderLoadMoreButton ({ page, isFetchingPokemons }) {
+    if (isFetchingPokemons || page > 1) return;
 
     return (
       <Row cssClass="row-load-more">
         <Col sm={12}>
-          <Button cssClass="blue" text={Strings.home.loadMore} onClick={this.loadMore} />
+          <Button
+            cssClass="blue"
+            text={Strings.home.loadMore}
+            onClick={this.loadMore.bind(this, this.props)}
+          />
         </Col>
       </Row>
     );
-  },
+  }
 
   render () {
-    const { pendingPokemons } = this.state;
-    const page = PokemonsStore.getCurrentPage();
+    const { pokemons } = this.props;
+    const { isFetchingPokemons, list, page } = pokemons;
     const cssClass = `app-page page-home ${page === 0 ? 'initial' : ''}`;
 
     return (
@@ -103,11 +74,20 @@ export default React.createClass({
           </Col>
         </Row>
         <Row>
-          <PokemonGrid list={this.state.pokemonList} onPokemonClick={this.handlePokemonClick} />
+          <PokemonGrid
+            list={list}
+            onPokemonClick={this.handlePokemonClick.bind(this)}
+          />
         </Row>
-        {this.renderLoadMoreButton(page, pendingPokemons)}
-        {pendingPokemons && <Loader />}
+        {this.renderLoadMoreButton(pokemons)}
+        {isFetchingPokemons && <Loader />}
       </div>
     );
-  },
-});
+  }
+}
+
+export default connect(state => {
+  return {
+    pokemons: state.pokemons,
+  };
+})(Home);

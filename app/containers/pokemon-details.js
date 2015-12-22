@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import { fetchDescription, fetchPokemon } from '../actions/pokemon';
+import { Strings } from '../constants';
 
 import Button from '../components/bootstrap/button';
 import Col from '../components/bootstrap/col';
@@ -11,86 +14,60 @@ import PokemonName from '../components/pokemon-name';
 import Pokemon from '../components/pokemon';
 
 
-import PokemonActions from '../actions/pokemon';
-import PokemonStore from '../stores/pokemon';
+class PokemonDetails extends Component {
 
-
-import { Status, Strings } from '../constants';
-import { FluxMixins, RouterMixins } from '../mixins';
-
-
-export default React.createClass({
-
-  mixins: [FluxMixins, RouterMixins],
-
-  statics: {
-    storeListeners: {
-      'onPokemonStoreChange': PokemonStore,
-    },
-  },
-
-  getInitialState () {
-    return PokemonStore.getInitialState();
-  },
-
-  componentDidMount () {
+  componentWillMount () {
     this.loadPage(this.props);
-  },
+  }
 
   componentWillReceiveProps (nextProps) {
-    this.loadPage(nextProps);
-  },
+    const { dispatch, params } = this.props;
+    const { params: nextParams, pokemon: nextPokemon } = nextProps;
 
-  onPokemonStoreChange () {
-    const state = PokemonStore.getState();
+    if (params.pokemonId !== nextParams.pokemonId) {
+      this.loadPage(nextProps);
+      return;
+    }
 
-    this.setState({
-      previousPokemon: state.previousPokemon,
-      currentPokemon: state.currentPokemon,
-      nextPokemon: state.nextPokemon,
-      pokemonDescription: state.pokemonDescription,
-      pending: state.status === Status.Pending,
-    });
+    if (nextProps.didFetchDescription) {
+      return;
+    }
 
-    if (!state.pendingDescription) return;
+    if (nextPokemon.current && !nextPokemon.description && !nextPokemon.isFetchingDescription) {
+      dispatch(fetchDescription(nextPokemon.current));
+    }
+  }
 
-    const payload = {
-      descriptions: state.currentPokemon.descriptions,
-    };
-
-    this.executeAction(PokemonActions.getDescription, payload);
-  },
-
-  loadPage (props) {
-    const { params } = props;
-
-    if (!params.pokemonId) return;
-
-    const payload = {
-      id: params.pokemonId,
-    };
-
-    this.executeAction(PokemonActions.getPokemonById, payload);
-  },
+  loadPage ({ params }) {
+    this.props.dispatch(fetchPokemon(params.pokemonId));
+  }
 
   handlePagerClick (id) {
-    this.transitionTo(`pokemon/${id}`);
-  },
+    this.props.history.push(`pokemon/${id}`);
+  }
 
-  renderHeader (previousPokemon, nextPokemon) {
+  renderHeader ({ previous, next }) {
     return (
       <Row cssClass="row-pager">
         <Col xs={6}>
-          <Pager side="left" onClick={this.handlePagerClick.bind(null, previousPokemon.national_id)} pokemon={previousPokemon} />
+          <Pager
+            side="left"
+            onClick={this.handlePagerClick.bind(this, previous.national_id)}
+            pokemon={previous}
+          />
         </Col>
         <Col xs={6}>
-          <Pager side="right" onClick={this.handlePagerClick.bind(null, nextPokemon.national_id)} pokemon={nextPokemon} />
+          <Pager
+            side="right"
+            onClick={this.handlePagerClick.bind(this, next.national_id)}
+            pokemon={next}
+          />
         </Col>
       </Row>
     );
-  },
+  }
 
-  renderDetails (pokemon) {
+  renderDetails ({ current: pokemon }) {
     return (
       <div className="details">
         <Row>
@@ -129,9 +106,9 @@ export default React.createClass({
         </Row>
       </div>
     );
-  },
+  }
 
-  renderStats (pokemon) {
+  renderStats ({ current: pokemon }) {
     const { stats } = Strings.pokemon;
 
     const divStats = Object.keys(stats)
@@ -153,9 +130,9 @@ export default React.createClass({
         </Row>
       </div>
     );
-  },
+  }
 
-  renderMoves (pokemon) {
+  renderMoves ({ current: pokemon }) {
     let col = 0;
     let { moves } = pokemon;
 
@@ -183,27 +160,32 @@ export default React.createClass({
         <div className="clearfix"></div>
       </div>
     );
-  },
+  }
 
   renderExploreMore () {
     return (
       <Row cssClass="row-explore-more">
         <Col sm={12}>
-          <Button cssClass="orange" text={Strings.pokemon.explore} onClick={() => this.transitionTo('/')} />
+          <Button
+            cssClass="orange"
+            text={Strings.pokemon.explore}
+            onClick={() => this.props.history.push('/')}
+          />
         </Col>
       </Row>
     );
-  },
+  }
 
   render () {
+    const { pokemon } = this.props;
     const {
-      pending,
-      previousPokemon,
-      currentPokemon,
-      nextPokemon,
-      pokemonDescription } = this.state;
+      isFetchingPokemons,
+      isFetchingDescription,
+      current,
+      description,
+    } = pokemon;
 
-    if (pending) {
+    if (isFetchingPokemons || isFetchingDescription) {
       return (
         <div className="app-page page-pokemon initial">
           <Loader />
@@ -213,25 +195,32 @@ export default React.createClass({
 
     return (
       <div className="app-page page-pokemon fadeIn animated">
-        {this.renderHeader(previousPokemon, nextPokemon)}
+        {this.renderHeader(pokemon)}
         <Row cssClass="row-name">
-          <PokemonName id={currentPokemon.national_id} name={currentPokemon.name} />
+          <PokemonName id={current.national_id} name={current.name} />
         </Row>
         <Row>
           <Col xs={6}>
-            <Pokemon details={true} pokemon={currentPokemon} />
+            <Pokemon details={true} pokemon={current} />
             <div className="fadeIn animated">
-              {pokemonDescription ? pokemonDescription.description : ''}
+              {description}
             </div>
           </Col>
           <Col xs={6}>
-            {this.renderDetails(currentPokemon)}
-            {this.renderStats(currentPokemon)}
+            {this.renderDetails(pokemon)}
+            {this.renderStats(pokemon)}
           </Col>
         </Row>
-        {this.renderMoves(currentPokemon)}
+        {this.renderMoves(pokemon)}
         {this.renderExploreMore()}
       </div>
     );
-  },
-});
+  }
+}
+
+
+export default connect((state) => {
+  return {
+    pokemon: state.pokemon,
+  };
+})(PokemonDetails);

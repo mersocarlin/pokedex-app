@@ -1,27 +1,25 @@
-import React from 'react';
-
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import { Strings } from '../constants';
-
-
-import { RouterMixins } from '../mixins';
-
 import logo from '../img/logo.png';
 
-export default React.createClass({
 
-  mixins: [RouterMixins],
+class App extends Component {
+  static propTypes = {
+    children: PropTypes.any.isRequired,
+  };
 
   handlerAppNameClick () {
-    this.transitionTo('/');
-  },
+    this.props.history.push('/');
+  }
 
   render () {
     return (
       <div className="app">
         <nav className="navbar navbar-default">
           <div className="container">
-            <div className="navbar-header" onClick={this.handlerAppNameClick}>
+            <div className="navbar-header" onClick={this.handlerAppNameClick.bind(this)}>
               <a className="navbar-brand">
                 <img alt="Brand" src={logo}/>
               </a>
@@ -34,6 +32,13 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
+  }
+}
 
-});
+
+function mapStateToProps (/* state */) {
+  return {};
+}
+
+
+export default connect(mapStateToProps)(App);
