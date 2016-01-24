@@ -6,7 +6,6 @@ import { Strings } from '../constants';
 
 import { RouterMixins } from '../mixins';
 
-
 import logo from '../img/logo.png';
 
 export default React.createClass({
@@ -17,7 +16,7 @@ export default React.createClass({
     this.transitionTo("/");
   },
 
-  render () {
+  render() {
     return (
       <div className="app">
         <nav className="navbar navbar-default">
@@ -35,6 +34,6 @@ export default React.createClass({
         </div>
       </div>
     );
-  }
+  },
 
 });

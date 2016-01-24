@@ -18,7 +18,7 @@ import { FluxMixins, RouterMixins } from '../mixins';
 
 export default React.createClass({
 
-    mixins: [ FluxMixins, RouterMixins ],
+  mixins: [FluxMixins, RouterMixins],
 
     statics: {
       storeListeners: {
@@ -108,5 +108,4 @@ export default React.createClass({
         </div>
       );
     }
-
-  });
+});

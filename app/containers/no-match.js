@@ -2,7 +2,6 @@ import React from 'react';
 
 
 export default React.createClass({
-
     render () {
       return (
         <div className="app-page page-no-match">
@@ -10,5 +9,4 @@ export default React.createClass({
         </div>
       );
     }
-
   });

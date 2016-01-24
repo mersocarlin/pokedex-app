@@ -4,5 +4,5 @@ import router from './router';
 
 export default {
   FluxMixins: flux,
-  RouterMixins: router
-}
+  RouterMixins: router,
+};

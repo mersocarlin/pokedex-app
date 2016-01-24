@@ -1,9 +1,7 @@
 import 'babel/register';
 
 
-import React from 'react';
-import { Router } from 'react-router';
-import { render } from 'react-dom'
+import { render } from 'react-dom';
 import FastClick from 'fastclick';
 
 

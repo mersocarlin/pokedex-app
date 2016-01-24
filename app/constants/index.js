@@ -4,6 +4,6 @@ import Strings from './strings/';
 
 
 export default {
-  Status: Status,
-  Strings: Strings[config.language]
-}
+  Status,
+  Strings: Strings[config.language],
+};

@@ -9,8 +9,8 @@ import PokemonDetails from './containers/pokemon-details';
 import NoMatch from './containers/no-match';
 
 
-let history = createHistory({
-  queryKey: false
+const history = createHistory({
+  queryKey: false,
 });
 
 export default (

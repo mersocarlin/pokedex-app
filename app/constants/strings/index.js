@@ -4,5 +4,5 @@ import Portuguese from './strings-pt-BR';
 
 export default {
   'en-US': English,
-  'pt-BR': Portuguese
-}
+  'pt-BR': Portuguese,
+};
