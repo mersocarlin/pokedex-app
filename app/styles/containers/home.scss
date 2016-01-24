@@ -1,0 +1,22 @@
+.page-home {
+
+  &.initial {
+    height: 100%;
+  }
+
+  .app-name {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 1.5em 0;
+    text-transform: uppercase;
+  }
+
+  .row-load-more {
+    margin-bottom: 3em;
+    text-align: center;
+  }
+
+  .loader-component {
+    margin-bottom: 3em;
+  }
+}

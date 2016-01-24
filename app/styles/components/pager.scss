@@ -1,0 +1,38 @@
+.pager-component {
+  background: $pager-bg;
+  color: $pager-text-color;
+  cursor: pointer;
+  padding: 2em;
+
+  i {
+    color: $pager-caret-color;
+  }
+
+  .pokemon-name {
+    font-size: 1.5em;
+  }
+
+  &.left {
+    @include border-bottom-right-radius(2em);
+
+    i {
+      float: left;
+    }
+
+    .pokemon-name {
+      float: right;
+    }
+  }
+
+  &.right {
+    @include border-bottom-left-radius(2em);
+
+    i {
+      float: right;
+    }
+
+    .pokemon-name {
+      float: left;
+    }
+  }
+}

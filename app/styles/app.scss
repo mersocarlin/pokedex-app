@@ -1,0 +1,22 @@
+$fa-font-path: '~font-awesome/fonts';
+@import "~font-awesome/scss/font-awesome";
+
+@import '../fonts/pokedex-app/styles.css';
+
+@import './variables';
+@import './mixins';
+//@import './fonts';
+@import './common';
+
+/* Components */
+@import './components/bootstrap/button';
+@import './components/loader';
+@import './components/pager';
+@import './components/pokemon-name';
+@import './components/pokemon';
+@import './components/progressbar';
+
+/* Containers */
+@import './containers/app';
+@import './containers/home';
+@import './containers/pokemon-details';

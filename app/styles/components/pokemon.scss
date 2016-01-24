@@ -1,0 +1,130 @@
+.pokemon {
+  background: $pokemon-bg;
+  border-color: $pokemon-bg;
+  cursor: pointer;
+  margin-bottom: 4em;
+  @include border-radius($pokemon-border);
+
+  .header,
+  .footer {
+    background: $pokemon-bg;
+    border: none;
+  }
+
+  .header {
+    font-size: 1.3em;
+    padding: 0.5em 0 0 0.5em;
+    @include border-top-left-radius($pokemon-border);
+    @include border-top-right-radius($pokemon-border);
+
+    @media (max-width: 1000px) {
+      font-size: 1em;
+    }
+  }
+
+  .body {
+    img {
+      width: 100%;
+    }
+  }
+
+  .footer {
+    font-size: 1em;
+    padding: 0;
+    @include border-bottom-left-radius($pokemon-border);
+    @include border-bottom-right-radius($pokemon-border);
+
+    @media (max-width: 1000px) {
+      font-size: 0.8em;
+    }
+
+    .type {
+      font-weight: bold;
+      padding: 0.2em 0;
+      text-align: center;
+      text-transform: uppercase;
+
+      &:nth-child(1) {
+        @include border-top-right-radius($pokemon-border);
+        @include border-bottom-left-radius($pokemon-border);
+      }
+
+      &:nth-child(2) {
+        @include border-top-left-radius($pokemon-border);
+        @include border-bottom-right-radius($pokemon-border);
+      }
+
+      &.type-bug {
+        background: $type-bug;
+      }
+
+      &.type-dark {
+        background: $type-dark;
+      }
+
+      &.type-dragon {
+        background: $type-dragon;
+      }
+
+      &.type-electric {
+        background: $type-electric;
+      }
+
+      &.type-fairy {
+        background: $type-fairy;
+      }
+
+      &.type-fighting {
+        background: $type-fighting;
+      }
+
+      &.type-fire {
+        background: $type-fire;
+      }
+
+      &.type-flying {
+        background: $type-flying;
+      }
+
+      &.type-ghost {
+        background: $type-ghost;
+      }
+
+      &.type-grass {
+        background: $type-grass;
+      }
+
+      &.type-ground {
+        background: $type-ground;
+      }
+
+      &.type-ice {
+        background: $type-ice;
+      }
+
+      &.type-normal {
+        background: $type-normal;
+      }
+
+      &.type-poison {
+        background: $type-poison;
+      }
+
+      &.type-psychic {
+        background: $type-psychic;
+      }
+
+      &.type-rock {
+        background: $type-rock;
+      }
+
+      &.type-steel {
+        background: $type-steel;
+      }
+
+      &.type-water {
+        background: $type-water;
+      }
+    }
+  }
+}

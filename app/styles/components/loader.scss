@@ -1,0 +1,10 @@
+.loader-component {
+  position: relative;
+  text-align: center;
+  top: 40%;
+
+  .icon {
+    color: $loader-color;
+    font-size: 3em;
+  }
+}

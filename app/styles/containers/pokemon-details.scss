@@ -1,0 +1,114 @@
+.page-pokemon {
+  &.initial {
+    height: 100%;
+  }
+
+  .row-pager {
+    .col-component {
+      &:nth-child(1) {
+        padding-left: 0;
+      }
+
+      &:nth-child(2) {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .row-name {
+    font-size: 3em;
+    margin: 1em 0;
+    text-align: center;
+  }
+
+  .pokemon {
+    cursor: normal;
+    margin-bottom: 1em;
+
+    @media (min-width: 1000px) {
+      @include border-radius(2em);
+
+      .footer {
+        font-size: 2em;
+      }
+    }
+  }
+
+  .details {
+    background: $details-bg;
+    padding: 2em;
+    @include border-radius($details-border);
+
+    h4 {
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    span.value {
+      font-size: 1.3em;
+    }
+  }
+
+  .base-stats {
+    background: $base-stats-bg;
+    margin-top: 2em;
+    padding: 2em;
+    @include border-radius($details-border);
+
+    h4 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .stat-info {
+      float: left;
+      margin-right: 0.67%;
+      width: 16%;
+
+      h4 {
+        font-size: 1em;
+        text-align: center;
+
+        @media (max-width: 1000px) {
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+
+  .moves {
+    h4 {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .move {
+      float: left;
+      font-size: 1.3em;
+      margin: 1em 0.5%;
+      padding: 0.5em;
+      text-align: center;
+      width: 24%;
+      @include border-radius($details-border);
+
+      &.col-0 {
+        background: $moves-col0-bg;
+      }
+      &.col-1 {
+        background: $moves-col1-bg;
+      }
+      &.col-2 {
+        background: $moves-col2-bg;
+      }
+      &.col-3 {
+        background: $moves-col3-bg;
+      }
+    }
+  }
+
+  .row-explore-more {
+    margin: 3em 0;
+    text-align: center;
+  }
+}

@@ -1,0 +1,37 @@
+.app {
+  background-image: url('../img/bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: $app-bg;
+
+  .navbar {
+    background: $nav-bg;
+    border-top: 2px solid $app-bg;
+    border-bottom: none;
+    margin-bottom: 0;
+    @include border-radius(0);
+
+    .navbar-header {
+      cursor: pointer;
+    }
+
+    .navbar-brand {
+      padding: 5px 5px;
+    }
+
+    .navbar-text {
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  & > .container {
+    background: #fff;
+  }
+}

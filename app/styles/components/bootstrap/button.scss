@@ -1,0 +1,27 @@
+.button-component {
+  border: none;
+  font-weight: bold;
+  min-width: 15em;
+  text-transform: uppercase;
+  @include border-radius($button-border);
+
+  &.blue {
+    background-color: $button-blue;
+
+    &:active,
+    &:focus {
+      border: none;
+      background-color: darken($button-blue, 10%);
+    }
+  }
+
+  &.orange {
+    background-color: $button-orange;
+
+    &:active,
+    &:focus {
+      border: none;
+      background-color: darken($button-orange, 10%);
+    }
+  }
+}
