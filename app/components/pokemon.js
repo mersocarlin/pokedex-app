@@ -13,13 +13,13 @@ export default React.createClass({
   propTypes: {
     details: React.PropTypes.bool,
     pokemon: React.PropTypes.object,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
   },
 
   getDefaultProps () {
     return {
-      details: false
-    }
+      details: false,
+    };
   },
 
   fillPokemonId (pokemon) {
@@ -31,8 +31,15 @@ export default React.createClass({
     return id;
   },
 
-  renderHeader (pokemon) {
+  handleClick () {
+    if (!this.props.onClick) return;
 
+    const { pokemon } = this.props;
+
+    this.props.onClick(pokemon);
+  },
+
+  renderHeader (pokemon) {
     return (
       <div className="header">
         <PokemonName id={pokemon.national_id} name={pokemon.name} />
@@ -57,7 +64,7 @@ export default React.createClass({
       <div className="footer">
         {
           pokemon.types.map((type, index) => {
-            const cssClass = `type type-${type.name}` ;
+            const cssClass = `type type-${type.name}`;
 
             return (
               <Col key={index} xs={6} cssClass={cssClass}>
@@ -71,14 +78,6 @@ export default React.createClass({
     );
   },
 
-  handleClick () {
-    if (!this.props.onClick) return;
-
-    const { pokemon } = this.props;
-
-    this.props.onClick(pokemon);
-  },
-
   render () {
     const { details, pokemon } = this.props;
 
@@ -88,8 +87,7 @@ export default React.createClass({
         {this.renderBody(pokemon)}
         {this.renderFooter(pokemon)}
       </div>
-    )
-
-  }
+    );
+  },
 
 });

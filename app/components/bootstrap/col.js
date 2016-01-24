@@ -5,20 +5,20 @@ export default React.createClass({
 
   propTypes: {
     cssClass: React.PropTypes.string,
-    xs      : React.PropTypes.number,
-    sm      : React.PropTypes.number,
-    md      : React.PropTypes.number,
-    lg      : React.PropTypes.number
+    xs: React.PropTypes.number,
+    sm: React.PropTypes.number,
+    md: React.PropTypes.number,
+    lg: React.PropTypes.number,
   },
 
   getDefaultProps () {
     return {
-      cssClass: "",
-      xs      : 0,
-      sm      : 0,
-      md      : 0,
-      lg      : 0,
-    }
+      cssClass: '',
+      xs: 0,
+      sm: 0,
+      md: 0,
+      lg: 0,
+    };
   },
 
   getCssClass () {
@@ -30,8 +30,8 @@ export default React.createClass({
       if (propValue > 0) {
         return `col-${propName}-${propValue}`;
       }
-      return "";
-    }).join(" ");
+      return '';
+    }).join(' ');
 
     return `col-component ${cssClass} ${colCssClass.trim()}`;
   },
@@ -44,6 +44,5 @@ export default React.createClass({
         {this.props.children}
       </div>
     );
-  }
-
+  },
 });

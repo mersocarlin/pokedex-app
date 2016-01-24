@@ -13,10 +13,9 @@ import './styles/app.scss';
 
 
 (() => {
-
   document.addEventListener('DOMContentLoaded', () => {
     FastClick.attach(document.body);
 
-    render(routes, document.getElementById("main"));
+    render(routes, document.getElementById('main'));
   });
 })();

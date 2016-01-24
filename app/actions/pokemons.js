@@ -6,10 +6,10 @@ import Dispatcher from '../dispatcher/dispatcher';
 import { config } from '../env';
 
 
-export let ActionTypes = keyMirror({
+export const ActionTypes = keyMirror({
   GetPokemonsPending: null,
   GetPokemonsSuccess: null,
-  GetPokemonsError  : null
+  GetPokemonsError: null,
 }, 'Pokemons:');
 
 
@@ -30,11 +30,14 @@ export default {
       pokemonIdList
         .filter(id => id <= maxId)
         .map(id => {
-        return ApiService.services.pokemon.getPokemonById(config.apiService.url, { id: id })
-      }))
-      .then(response => {
-        response = response.map(r => r.data);
-        Dispatcher.dispatch(ActionTypes.GetPokemonsSuccess, response);
-    });
+          return ApiService
+            .services
+            .pokemon
+              .getPokemonById(config.apiService.url, { id });
+        })
+      ).then(response => {
+        const resp = response.map(r => r.data);
+        Dispatcher.dispatch(ActionTypes.GetPokemonsSuccess, resp);
+      });
   },
 };

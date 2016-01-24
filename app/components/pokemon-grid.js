@@ -8,15 +8,15 @@ import Pokemon from './pokemon';
 export default React.createClass({
 
   propTypes: {
-    list          : React.PropTypes.array,
-    onPokemonClick: React.PropTypes.func
+    list: React.PropTypes.array,
+    onPokemonClick: React.PropTypes.func,
   },
 
   getDefaultProps () {
     return {
-      list          : [],
-      onPokemonClick: () => {}
-    }
+      list: [],
+      onPokemonClick: () => {},
+    };
   },
 
   handlePokemonClick (pokemon) {
@@ -34,11 +34,10 @@ export default React.createClass({
               <Col key={index} sm={3}>
                 <Pokemon pokemon={pokemon} onClick={this.handlePokemonClick} />
               </Col>
-            )
+            );
           })
         }
       </div>
     );
-  }
-
+  },
 });

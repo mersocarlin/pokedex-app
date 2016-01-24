@@ -22,7 +22,8 @@ class FluxStore extends EventEmitter {
   }
 
   setState (pendingState) {
-    if(typeof pendingState == 'object') {
+    if (typeof pendingState === 'object') {
+      /* eslint new-cap:0 */
       ObjectAssign(this.state, this.state, pendingState);
       this.emitChange();
     }
@@ -54,17 +55,18 @@ class FluxStore extends EventEmitter {
   }
 
   handleAction (payload) {
-    if(this.actions[payload.actionType]) {
+    if (this.actions[payload.actionType]) {
       this.actions[payload.actionType](payload);
     }
   }
 
   bindActions (...actions) {
     if (actions.length > 1 && actions.length % 2 !== 0) {
-      throw new Error("bindActions must take an even number of arguments.");
+      throw new Error('bindActions must take an even number of arguments.');
     }
-    for(let i = 0; i < actions.length; i += 2) {
-      let type = actions[i], handler = actions[i+1];
+    for (let i = 0; i < actions.length; i += 2) {
+      const type = actions[i];
+      const handler = actions[i + 1];
       this.bindAction(type, handler);
     }
   }

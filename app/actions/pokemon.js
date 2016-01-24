@@ -6,40 +6,41 @@ import Dispatcher from '../dispatcher/dispatcher';
 import { config } from '../env';
 
 
-export let ActionTypes = keyMirror({
+export const ActionTypes = keyMirror({
   GetPokemonByIdPending: null,
   GetPokemonByIdSuccess: null,
-  GetPokemonByIdError  : null,
+  GetPokemonByIdError: null,
 
   GetPokemonDescriptionPending: null,
   GetPokemonDescriptionSuccess: null,
-  GetPokemonDescriptionError: null
+  GetPokemonDescriptionError: null,
 }, 'Pokemon:');
 
 
 export default {
   getPokemonById (payload) {
-    let previousId = parseInt(payload.id) - 1;
-    let nextId = parseInt(payload.id) + 1;
+    let previousId = parseInt(payload.id, 10) - 1;
+    let nextId = parseInt(payload.id, 10) + 1;
 
-    if (previousId <= 0)
+    if (previousId <= 0) {
       previousId = config.pokemon.maxId;
-    if (nextId > config.pokemon.maxId)
-      nextId = 1;
+    }
 
+    if (nextId > config.pokemon.maxId) {
+      nextId = 1;
+    }
     Dispatcher.dispatch(ActionTypes.GetPokemonByIdPending);
 
     Promise.all([
-      //previous
+      // previous
       ApiService.services.pokemon.getPokemonById(config.apiService.url, { id: previousId }),
-      //current
+      // current
       ApiService.services.pokemon.getPokemonById(config.apiService.url, payload),
-      //next
+      // next
       ApiService.services.pokemon.getPokemonById(config.apiService.url, { id: nextId }),
-      ])
-      .then(response => {
-        response = response.map(r => r.data);
-        Dispatcher.dispatch(ActionTypes.GetPokemonByIdSuccess, response);
+    ]).then(response => {
+      const resp = response.map(r => r.data);
+      Dispatcher.dispatch(ActionTypes.GetPokemonByIdSuccess, resp);
     });
   },
 
@@ -48,12 +49,12 @@ export default {
 
     Dispatcher.dispatch(ActionTypes.GetPokemonDescriptionPending);
 
-    ApiService.services.pokemon.getDescription(config.apiService.url, { url: url })
+    ApiService.services.pokemon.getDescription(config.apiService.url, { url })
       .then(response => {
         Dispatcher.dispatch(ActionTypes.GetPokemonDescriptionSuccess, response.data);
       })
       .catch(err => {
         Dispatcher.dispatch(ActionTypes.GetPokemonDescriptionError, err);
       });
-  }
+  },
 };

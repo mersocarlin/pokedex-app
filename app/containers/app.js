@@ -10,10 +10,10 @@ import logo from '../img/logo.png';
 
 export default React.createClass({
 
-  mixins: [ RouterMixins ],
+  mixins: [RouterMixins],
 
   handlerAppNameClick () {
-    this.transitionTo("/");
+    this.transitionTo('/');
   },
 
   render () {

@@ -4,13 +4,13 @@ import { Status } from '../constants';
 
 
 class PokemonsStore extends FluxStore {
-  constructor() {
+  constructor () {
     super();
 
     this.bindActions(
       ActionTypes.GetPokemonsPending, this.onGetPokemonsPending,
       ActionTypes.GetPokemonsSuccess, this.onGetPokemonsSuccess,
-      ActionTypes.GetPokemonsError  , this.onGetPokemonsError
+      ActionTypes.GetPokemonsError, this.onGetPokemonsError
     );
   }
 
@@ -19,9 +19,9 @@ class PokemonsStore extends FluxStore {
 
     return {
       pokemonList: [],
-      error          : null,
+      error: null,
       pendingPokemons: true,
-      status         : Status.Ok
+      status: Status.Ok,
     };
   }
 
@@ -35,14 +35,14 @@ class PokemonsStore extends FluxStore {
   }
 
   getCurrentPage () {
-    return parseInt(localStorage.pokedexPage || 0);
+    return parseInt(localStorage.pokedexPage || 0, 10);
   }
 
   onGetPokemonsPending () {
     this.setState({
       pokemonList: [],
-      error      : null,
-      status     : Status.Pending
+      error: null,
+      status: Status.Pending,
     });
   }
 
@@ -50,16 +50,16 @@ class PokemonsStore extends FluxStore {
     this.updatePage();
     this.setState({
       pokemonList: payload.data,
-      error      : null,
-      status     : Status.Ok
+      error: null,
+      status: Status.Ok,
     });
   }
 
   onGetPokemonsError (error) {
     this.setState({
       pokemonList: null,
-      error      : error,
-      status     : Status.Errors
+      error,
+      status: Status.Errors,
     });
   }
 }

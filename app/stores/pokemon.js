@@ -4,39 +4,39 @@ import { Status } from '../constants';
 
 
 class PokemonStore extends FluxStore {
-  constructor() {
+  constructor () {
     super();
 
     this.bindActions(
       ActionTypes.GetPokemonByIdPending, this.onGetPokemonByIdPending,
       ActionTypes.GetPokemonByIdSuccess, this.onGetPokemonByIdSuccess,
-      ActionTypes.GetPokemonByIdError  , this.onGetPokemonByIdError,
+      ActionTypes.GetPokemonByIdError, this.onGetPokemonByIdError,
 
       ActionTypes.GetPokemonDescriptionPending, this.onGetPokemonDescriptionPending,
       ActionTypes.GetPokemonDescriptionSuccess, this.onGetPokemonDescriptionSuccess,
-      ActionTypes.GetPokemonDescriptionError  , this.onGetPokemonDescriptionError
+      ActionTypes.GetPokemonDescriptionError, this.onGetPokemonDescriptionError
     );
   }
 
   getInitialState () {
     return {
       previousPokemon: {},
-      currentPokemon : {},
-      nextPokemon    : {},
-      error          : null,
-      pending        : true,
-      status         : Status.Ok
+      currentPokemon: {},
+      nextPokemon: {},
+      error: null,
+      pending: true,
+      status: Status.Ok,
     };
   }
 
   onGetPokemonByIdPending () {
     this.setState({
-      previousPokemon   : {},
-      currentPokemon    : {},
-      nextPokemon       : {},
+      previousPokemon: {},
+      currentPokemon: {},
+      nextPokemon: {},
       pendingDescription: false,
-      error             : null,
-      status            : Status.Pending
+      error: null,
+      status: Status.Pending,
     });
   }
 
@@ -44,23 +44,23 @@ class PokemonStore extends FluxStore {
     const data = payload.data;
 
     this.setState({
-      previousPokemon   : data[0],
-      currentPokemon    : data[1],
-      nextPokemon       : data[2],
+      previousPokemon: data[0],
+      currentPokemon: data[1],
+      nextPokemon: data[2],
       pendingDescription: true,
-      error             : null,
-      status            : Status.Ok
+      error: null,
+      status: Status.Ok,
     });
   }
 
   onGetPokemonByIdError (error) {
     this.setState({
-      previousPokemon   : null,
-      currentPokemon    : null,
-      nextPokemon       : null,
+      previousPokemon: null,
+      currentPokemon: null,
+      nextPokemon: null,
       pendingDescription: false,
-      error             : error,
-      status            : Status.Errors
+      error,
+      status: Status.Errors,
     });
   }
 
@@ -69,14 +69,15 @@ class PokemonStore extends FluxStore {
   onGetPokemonDescriptionSuccess (payload) {
     this.setState({
       pendingDescription: false,
-      pokemonDescription: payload.data
+      pokemonDescription: payload.data,
     });
   }
 
   onGetPokemonDescriptionError (error) {
     this.setState({
       pendingDescription: false,
-      pokemonDescription: ""
+      pokemonDescription: '',
+      error,
     });
   }
 }
