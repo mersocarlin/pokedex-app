@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
     case POKEMONS_FAILURE:
       return { ...state, isFetchingPokemons: false, error: action.error };
     case POKEMONS_RESET:
-      return { INITIAL_STATE };
+      return { ...INITIAL_STATE };
     default:
       return state;
   }

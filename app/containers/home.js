@@ -19,7 +19,6 @@ class Home extends Component {
 
   componentWillUnmount () {
     this.props.dispatch(resetPage());
-    window.removeEventListener('scroll', this.handleScroll.bind(this));
   }
 
   handleScroll () {
@@ -27,10 +26,14 @@ class Home extends Component {
       return;
     }
 
-    const { pokemons } = this.props;
+    const { history, pokemons } = this.props;
     const { isFetchingPokemons, page } = pokemons;
 
     if (isFetchingPokemons || page <= 1) {
+      return;
+    }
+
+    if (!history.isActive('/')) {
       return;
     }
 
@@ -42,6 +45,7 @@ class Home extends Component {
   }
 
   handlePokemonClick (pokemon) {
+    window.removeEventListener('scroll', this.handleScroll.bind(this));
     this.props.history.push(`pokemon/${pokemon.national_id}`);
   }
 
