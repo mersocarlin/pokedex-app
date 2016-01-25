@@ -4,13 +4,13 @@ import React from 'react';
 export default React.createClass({
 
   propTypes: {
-    cssClass: React.PropTypes.string
+    cssClass: React.PropTypes.string,
   },
 
   getDefaultProps () {
     return {
-      cssClass: ""
-    }
+      cssClass: '',
+    };
   },
 
   render () {
@@ -21,6 +21,5 @@ export default React.createClass({
         {this.props.children}
       </div>
     );
-  }
-
+  },
 });

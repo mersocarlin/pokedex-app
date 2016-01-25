@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Col from './bootstrap/col';
 import I from './font-awesome/i';
 import PokemonName from './pokemon-name';
 
@@ -8,13 +7,13 @@ import PokemonName from './pokemon-name';
 export default React.createClass({
 
   propTypes: {
-    side   : React.PropTypes.string,
+    side: React.PropTypes.string,
     onClick: React.PropTypes.func,
-    pokemon: React.PropTypes.object
+    pokemon: React.PropTypes.object,
   },
 
   renderPagerLeft (side, pokemon) {
-    if (side === "right") return;
+    if (side === 'right') return;
 
     return (
       <div>
@@ -25,7 +24,7 @@ export default React.createClass({
   },
 
   renderPagerRight (side, pokemon) {
-    if (side === "left") return;
+    if (side === 'left') return;
 
     return (
       <div>
@@ -45,6 +44,6 @@ export default React.createClass({
         <div className="clearfix"></div>
       </div>
     );
-  }
+  },
 
 });

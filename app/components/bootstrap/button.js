@@ -5,15 +5,15 @@ export default React.createClass({
 
   propTypes: {
     cssClass: React.PropTypes.string,
-    onClick : React.PropTypes.func,
-    text    : React.PropTypes.string
+    onClick: React.PropTypes.func,
+    text: React.PropTypes.string,
   },
 
   getDefaultProps () {
     return {
-      cssClass: "",
-      text    : ""
-    }
+      cssClass: '',
+      text: '',
+    };
   },
 
   handleButtonClick () {
@@ -30,6 +30,5 @@ export default React.createClass({
         {text}
       </a>
     );
-  }
-
+  },
 });

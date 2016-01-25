@@ -4,8 +4,8 @@ import React from 'react';
 export default React.createClass({
 
   propTypes: {
-    id  : React.PropTypes.number,
-    name: React.PropTypes.string
+    id: React.PropTypes.number,
+    name: React.PropTypes.string,
   },
 
   fillPokemonId (pokemonId) {
@@ -40,6 +40,5 @@ export default React.createClass({
         {filledId} <span className="name">{name}</span>
       </div>
     );
-  }
-
+  },
 });

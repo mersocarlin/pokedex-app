@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 
-export default React.createClass({
+class NoMatch extends Component {
+  render () {
+    return (
+      <div className="app-page page-no-match">
+        Not Found!
+      </div>
+    );
+  }
+}
 
-    render () {
-      return (
-        <div className="app-page page-no-match">
-          Not Found!
-        </div>
-      );
-    }
 
-  });
+export default connect((/* state */) => {
+  return {
+
+  };
+})(NoMatch);

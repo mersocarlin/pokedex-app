@@ -4,13 +4,13 @@ import React from 'react';
 export default React.createClass({
 
   propTypes: {
-    value: React.PropTypes.number
+    value: React.PropTypes.number,
   },
 
   getDefaultProps () {
     return {
-      value: 100
-    }
+      value: 100,
+    };
   },
 
   render () {
@@ -23,6 +23,5 @@ export default React.createClass({
         <div className={pbCssClass}></div>
       </div>
     );
-  }
-
+  },
 });
