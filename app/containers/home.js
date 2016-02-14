@@ -12,13 +12,20 @@ import PokemonGrid from '../components/pokemon-grid';
 
 
 class Home extends Component {
+  constructor () {
+    super();
+
+    this.scrollEvent = this.handleScroll.bind(this);
+  }
+
   componentWillMount () {
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+    window.addEventListener('scroll', this.scrollEvent);
     this.loadMore(this.props);
   }
 
   componentWillUnmount () {
     this.props.dispatch(resetPage());
+    window.removeEventListener('scroll', this.scrollEvent);
   }
 
   handleScroll () {
